@@ -1,0 +1,23 @@
+{
+    "name": "kibana-generic-visualization",
+    "version": "0.0.0",
+    "description": "Create Kibana visualizations and dashboards from configuration",
+    "keywords": [
+        "kibana",
+        "typescript",
+        "generic",
+        "visualization",
+        "dashboard"
+    ],
+    "engines": {
+        "node": ">=8.x"
+    },
+    "contributors": [
+        {
+            "name": "Robert Kleger",
+            "email": "robert.kleger@bobb.io"
+        }
+    ],
+    "repository": "git+ssh://git@github.com:DaNautilus/database-metrics-logger.git",
+    "license": "ISC"
+}
