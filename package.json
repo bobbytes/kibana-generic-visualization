@@ -8,6 +8,15 @@
     "dist"
   ],
   "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "set NODE_ENV=test&& jest --env=jsdom --coverage",
+    "lint": "tslint --project tsconfig.json --format stylish",
+    "prebuild": "npm run lint && rimraf dist && rimraf .tmp",
+    "postbuild": "npm run bundle && rimraf .tmp",
+    "bundle": "dts-bundle --name dist/index --main .tmp --outputAsModuleFolder",
+    "sonarconfig": "rimraf sonar-project.properties && node ./scripts/sonar-config.js"
+  },
   "keywords": [
     "kibana",
     "typescript",
@@ -17,6 +26,28 @@
   ],
   "engines": {
     "node": ">=8.x"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(js|ts|tsx)$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "testPathIgnorePatterns": [
+      "<rootDir>/(node_modules|dist)"
+    ],
+    "coverageDirectory": "<rootDir>/test/coverage",
+    "collectCoverageFrom": [
+      "src/**/*.{t,j}s?(x)",
+      "!src/**/index.ts",
+      "!src/**/*.d.ts"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "json",
+      "ts",
+      "tsx"
+    ]
   },
   "contributors": [
     {
