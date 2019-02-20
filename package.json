@@ -49,13 +49,18 @@
       "tsx"
     ]
   },
+  "sonar": {
+    "projectKey": "DaNautilus_kibana-generic-visualization",
+    "sources": "src",
+    "reportPaths": "test/coverage/lcov.info"
+  },
   "contributors": [
     {
       "name": "Robert Kleger",
       "email": "robert.kleger@bobb.io"
     }
   ],
-  "repository": "git+ssh://git@github.com:DaNautilus/database-metrics-logger.git",
+  "repository": "git+ssh://git@github.com:DaNautilus/kibana-generic-visualization.git",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^24.0.6",
