@@ -14,7 +14,7 @@
     <img src="https://sonarcloud.io/api/project_badges/measure?project=DaNautilus_kibana-generic-visualization&metric=coverage" alt="coverage" />
   </a>
   <a href="https://sonarcloud.io/dashboard/index/DaNautilus_kibana-generic-visualization">
-    <img src="https://sonarcloud.io/api/project_badges/measure?project=DaNautilus_kibana-generic-visualization&metric=alert_statuss" alt="quality gate" />
+    <img src="https://sonarcloud.io/api/project_badges/measure?project=DaNautilus_kibana-generic-visualization&metric=alert_status" alt="quality gate" />
   </a>
 </p>
 
