@@ -1,14 +1,14 @@
-import uuidv1 from 'uuid/v1';
+import uuid from 'uuid/v1';
 
-import { KibanaVisualizationModel } from './kibana-visualization/kibana-visualization.model';
+import { KibanaObjectIdPrefixEnum } from '../enums/kibana-object-id-prefix.enum';
 
-export class KibanaObjectModel {
+export class KibanaObjectModel<T> {
   public _type = 'doc';
   public _id: string;
-  public _source: KibanaVisualizationModel;
+  public _source: T;
 
-  constructor(source: KibanaVisualizationModel) {
+  constructor(idPrefix: KibanaObjectIdPrefixEnum, source: T) {
     this._source = source;
-    this._id = `visualization:${uuidv1()}`;
+    this._id = `${idPrefix}:${uuid()}`;
   }
 }

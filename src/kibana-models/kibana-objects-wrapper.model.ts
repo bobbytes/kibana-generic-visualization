@@ -1,10 +1,10 @@
 import { KibanaObjectModel } from './kibana-object.model';
 
-export class KibanaObjectsWrapperModel {
+export class KibanaObjectsWrapperModel<T> {
   public kibanaVersion = '6.3.2';
-  public hits: KibanaObjectModel[] = [];
+  public hits: KibanaObjectModel<T>[] = [];
 
-  constructor(kibanaObjects: KibanaObjectModel[]) {
+  constructor(kibanaObjects: KibanaObjectModel<T>[]) {
     this.hits = kibanaObjects;
   }
 

@@ -26,6 +26,7 @@ export interface IKibanaVisualizationLineConfig {
   savedSearchId: string;
   aggregations: KibanaVisualizationAggregationModel[];
   seriesParams: KibanaVisualizationSeriesParamModel[];
+  filters: KibanaVisualizationFilterModel[];
 }
 
 export const createKibanaVisualizationLine = (config: IKibanaVisualizationLineConfig) => {
@@ -38,9 +39,7 @@ export const createKibanaVisualizationLine = (config: IKibanaVisualizationLineCo
     config.seriesParams
   );
 
-  const filter = new KibanaVisualizationFilterModel();
-
-  const searchSourceJSON = new KibanaVisualizationSearchSourceJsonModel([filter]);
+  const searchSourceJSON = new KibanaVisualizationSearchSourceJsonModel(config.filters);
 
   return new KibanaVisualizationModel(
     config.title,

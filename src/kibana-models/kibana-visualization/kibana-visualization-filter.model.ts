@@ -5,9 +5,9 @@ export class KibanaVisualizationFilterModel {
     disabled: false,
     type: 'phrase',
     key: 'name',
-    value: 'taibika-app-support-sessions',
+    value: '',
     params: {
-      query: 'taibika-app-support-sessions',
+      query: '',
       type: 'phrase',
     },
   };
@@ -15,7 +15,7 @@ export class KibanaVisualizationFilterModel {
   public query = {
     match: {
       name: {
-        query: 'taibika-app-support-sessions',
+        query: '',
         type: 'phrase',
       },
     },
@@ -24,4 +24,11 @@ export class KibanaVisualizationFilterModel {
   public $state = {
     store: 'appState',
   };
+
+  constructor(key: string, value: string) {
+    this.meta.key = key;
+    this.meta.value = value;
+    this.meta.params.query = value;
+    this.query.match.name.query = value;
+  }
 }
