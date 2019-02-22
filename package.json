@@ -64,6 +64,8 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^24.0.6",
+    "@types/request": "^2.48.1",
+    "@types/uuid": "^3.4.4",
     "dts-bundle": "^0.7.3",
     "jest": "^24.1.0",
     "rollup": "^1.2.2",
@@ -74,7 +76,8 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "@types/request": "^2.48.1",
-    "dotenv": "^6.2.0"
+    "dotenv": "^6.2.0",
+    "lodash-es": "^4.17.11",
+    "uuid": "^3.3.2"
   }
 }
