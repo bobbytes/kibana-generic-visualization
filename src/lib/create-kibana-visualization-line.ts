@@ -1,6 +1,7 @@
+import { KibanaVisualizationType } from '../enums/kibana-visualization-state-type.enum';
 import {
-    KibanaVisualizationAggsModel
-} from '../kibana-models/kibana-visualization/kibana-visualization-aggs.model';
+    KibanaVisualizationAggregationModel
+} from '../kibana-models/kibana-visualization/kibana-visualization-aggregation.model';
 import {
     KibanaVisualizationCategoryAxis
 } from '../kibana-models/kibana-visualization/kibana-visualization-category-axis.model';
@@ -20,44 +21,21 @@ import {
     VisualizationStateModel
 } from '../kibana-models/kibana-visualization/visualization-state.model';
 
-export const createKibanaVisualizationLine = (title: string, savedSearchId: string) => {
-  const aggs1 = new KibanaVisualizationAggsModel({
-    id: '2',
-    field: '@timestamp',
-    type: 'date_histogram',
-    schema: 'segment',
-    interval: 'auto',
-    customInterval: '2h',
-    min_doc_count: 1,
-    extended_bounds: {},
-  });
+export interface IKibanaVisualizationLineConfig {
+  title: string;
+  savedSearchId: string;
+  aggregations: KibanaVisualizationAggregationModel[];
+  seriesParams: KibanaVisualizationSeriesParamModel[];
+}
 
-  const aggs2 = new KibanaVisualizationAggsModel({
-    id: '3',
-    field: 'metrics.used_memory',
-    type: 'max',
-    schema: 'metric',
-    customLabel: 'Used Memory',
-  });
-
-  const aggs3 = new KibanaVisualizationAggsModel({
-    id: '4',
-    field: 'metrics.used_memory_rss',
-    type: 'max',
-    schema: 'metric',
-    customLabel: 'Used Memory RSS',
-  });
-
+export const createKibanaVisualizationLine = (config: IKibanaVisualizationLineConfig) => {
   const categoryAxis = new KibanaVisualizationCategoryAxis();
 
-  const seriesParams1 = new KibanaVisualizationSeriesParamModel('3', 'Used Memory');
-  const seriesParams2 = new KibanaVisualizationSeriesParamModel('4', 'Used Memory RSS');
-
   const visualizationState = new VisualizationStateModel(
-    [aggs1, aggs2, aggs3],
-    'line',
+    config.aggregations,
+    KibanaVisualizationType.Line,
     [categoryAxis],
-    [seriesParams1, seriesParams2]
+    config.seriesParams
   );
 
   const filter = new KibanaVisualizationFilterModel();
@@ -65,9 +43,9 @@ export const createKibanaVisualizationLine = (title: string, savedSearchId: stri
   const searchSourceJSON = new KibanaVisualizationSearchSourceJsonModel([filter]);
 
   return new KibanaVisualizationModel(
-    title,
+    config.title,
     visualizationState,
-    savedSearchId,
+    config.savedSearchId,
     searchSourceJSON
   );
 };

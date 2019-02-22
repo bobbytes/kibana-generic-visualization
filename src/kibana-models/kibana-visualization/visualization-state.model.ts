@@ -1,9 +1,9 @@
-import { KibanaVisualizationAggsModel } from './kibana-visualization-aggs.model';
+import { KibanaVisualizationAggregationModel } from './kibana-visualization-aggregation.model';
 import { KibanaVisualizationCategoryAxis } from './kibana-visualization-category-axis.model';
 import { KibanaVisualizationSeriesParamModel } from './kibana-visualization-series-param.model';
 
 export class VisualizationStateModel {
-  public aggs: KibanaVisualizationAggsModel[] = [];
+  public aggs: KibanaVisualizationAggregationModel[] = [];
   public params = {
     addLegend: true,
     addTimeMarker: false,
@@ -46,12 +46,12 @@ export class VisualizationStateModel {
   public type: string;
 
   constructor(
-    aggs: KibanaVisualizationAggsModel[],
+    aggregations: KibanaVisualizationAggregationModel[],
     type: string,
     categoryAxes: KibanaVisualizationCategoryAxis[],
     seriesParams: KibanaVisualizationSeriesParamModel[]
   ) {
-    this.aggs = aggs;
+    this.aggs = aggregations;
     this.type = type;
     this.params.categoryAxes = categoryAxes;
     this.params.seriesParams = seriesParams;

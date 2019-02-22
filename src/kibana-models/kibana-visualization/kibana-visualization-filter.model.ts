@@ -1,7 +1,5 @@
 export class KibanaVisualizationFilterModel {
   public meta = {
-    // tslint:disable-next-line: no-null-keyword
-    alias: null,
     index: '[logzioCustomerIndex]YYMMDD',
     negate: false,
     disabled: false,
