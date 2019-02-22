@@ -1,4 +1,6 @@
-import { SearchSourceJsonModel } from './search-source-json.model';
+import {
+    KibanaVisualizationSearchSourceJsonModel
+} from './kibana-visualization-search-source-json.model';
 import { VisualizationStateModel } from './visualization-state.model';
 
 export class KibanaVisualizationModel {
@@ -16,7 +18,7 @@ export class KibanaVisualizationModel {
     title: string,
     visualizationState: VisualizationStateModel,
     savedSearchId: string,
-    searchSourceJSON: SearchSourceJsonModel) {
+    searchSourceJSON: KibanaVisualizationSearchSourceJsonModel) {
     this.visualization.title = title;
     this.visualization.visState = JSON.stringify(visualizationState);
     this.visualization.savedSearchId = savedSearchId;

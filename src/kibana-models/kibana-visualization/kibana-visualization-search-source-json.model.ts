@@ -1,6 +1,6 @@
 import { KibanaVisualizationFilterModel } from './kibana-visualization-filter.model';
 
-export class SearchSourceJsonModel {
+export class KibanaVisualizationSearchSourceJsonModel {
   public filter: KibanaVisualizationFilterModel[] = [];
   public query = {
     language: 'kuery',

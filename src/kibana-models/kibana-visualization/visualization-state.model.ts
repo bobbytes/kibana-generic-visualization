@@ -43,18 +43,15 @@ export class VisualizationStateModel {
       },
     ],
   };
-  public title: string;
   public type: string;
 
   constructor(
     aggs: KibanaVisualizationAggsModel[],
-    title: string,
     type: string,
     categoryAxes: KibanaVisualizationCategoryAxis[],
     seriesParams: KibanaVisualizationSeriesParamModel[]
   ) {
     this.aggs = aggs;
-    this.title = title;
     this.type = type;
     this.params.categoryAxes = categoryAxes;
     this.params.seriesParams = seriesParams;

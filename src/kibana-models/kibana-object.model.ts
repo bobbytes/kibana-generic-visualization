@@ -1,6 +1,6 @@
 import uuidv1 from 'uuid/v1';
 
-import { KibanaVisualizationModel } from './kibana-visualization.model';
+import { KibanaVisualizationModel } from './kibana-visualization/kibana-visualization.model';
 
 export class KibanaObjectModel {
   public _type = 'doc';
