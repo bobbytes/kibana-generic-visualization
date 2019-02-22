@@ -9,7 +9,5 @@ describe('GenericKibanaVisualization', () => {
 
   test('first test', () => {
     expect(genericKibanaVisualization).toBeInstanceOf(GenericKibanaVisualization);
-
-    // genericKibanaVisualization.request();
   });
 });
