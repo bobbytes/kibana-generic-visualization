@@ -1,4 +1,3 @@
-import { KibanaObjectIdPrefixEnum } from './enums/kibana-object-id-prefix.enum';
 import {
     KibanaVisualizationAggregationSchemaEnum
 } from './enums/kibana-visualization-aggregation-schema.enum';
@@ -6,12 +5,10 @@ import {
     KibanaVisualizationAggregationTypeEnum
 } from './enums/kibana-visualization-aggregation-type.enum';
 import { env } from './env';
+import { KibanaFilterModel } from './kibana-models/kibana-filter.model';
 import {
     KibanaVisualizationAggregationModel
 } from './kibana-models/kibana-visualization/kibana-visualization-aggregation.model';
-import {
-    KibanaVisualizationFilterModel
-} from './kibana-models/kibana-visualization/kibana-visualization-filter.model';
 import {
     KibanaVisualizationSeriesParamModel
 } from './kibana-models/kibana-visualization/kibana-visualization-series-param.model';
@@ -21,7 +18,6 @@ import {
 import {
     createKibanaVisualizationLine, IKibanaVisualizationLineConfig
 } from './lib/create-kibana-visualization-line';
-import { kibanaConnector } from './lib/kibana-connector';
 
 class RedisVisualizations {
   private redisServiceNames = [
@@ -66,10 +62,10 @@ class RedisVisualizations {
 
     const seriesParams = fields.map((field, index) => new KibanaVisualizationSeriesParamModel(`${index + 1}`, field.customLabel));
 
-    const filter = new KibanaVisualizationFilterModel('name', serviceName);
+    const filter = new KibanaFilterModel('name', serviceName);
 
     const kibanaVisualizationLineConfig: IKibanaVisualizationLineConfig = {
-      title: `Redis ${serviceName} Memory`,
+      title: `Redis ${serviceName} Memory bubu`,
       savedSearchId: env.kibana.savedSearchId,
       aggregations: [timestampAggregation, ...fieldAggregations],
       seriesParams,

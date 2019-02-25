@@ -1,4 +1,4 @@
-export class KibanaVisualizationFilterModel {
+export class KibanaFilterModel {
   public meta = {
     index: '[logzioCustomerIndex]YYMMDD',
     negate: false,

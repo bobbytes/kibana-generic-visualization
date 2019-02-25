@@ -1,7 +1,7 @@
 import request from 'request';
 import { isArray } from 'util';
 
-import { KibanaObjectIdPrefixEnum } from '../enums/kibana-object-id-prefix.enum';
+import { KibanaObjectTypeEnum } from '../enums/kibana-object-id-prefix.enum';
 import { env } from '../env';
 import { KibanaObjectModel } from '../kibana-models/kibana-object.model';
 import { KibanaObjectsWrapperModel } from '../kibana-models/kibana-objects-wrapper.model';
@@ -20,23 +20,25 @@ class KibanaConnector {
     body: '',
   };
 
-  public getKibanaObject(): void {
+  public getKibanaObject(objectType: KibanaObjectTypeEnum): void {
     const options = this.options;
     options.url = `${options.url}/export`;
-    options.body = '{"type": "visualization"}';
+    options.body = `{"type": "${objectType}"}`;
 
     request(options, this.callback.bind(this));
   }
 
-  public setKibanaObject<T>(idPrefix: KibanaObjectIdPrefixEnum, source: T | T[]): void {
+  public setKibanaObject<T>(objectType: KibanaObjectTypeEnum, source: T | T[]): void {
     const kibanaObjects = isArray(source)
-      ? source.map(s => new KibanaObjectModel<T>(idPrefix, s))
-      : [new KibanaObjectModel<T>(idPrefix, source)];
+      ? source.map(s => new KibanaObjectModel<T>(objectType, s))
+      : [new KibanaObjectModel<T>(objectType, source)];
 
     const kibanaObjectWrapper = new KibanaObjectsWrapperModel<T>(kibanaObjects);
     const options = this.options;
     options.body = kibanaObjectWrapper.toString();
     options.url = `${options.url}/import`;
+
+    console.log('bubu', options.body);
 
     request(options, this.callback.bind(this));
   }

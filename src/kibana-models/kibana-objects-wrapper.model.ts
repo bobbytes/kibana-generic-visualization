@@ -1,7 +1,8 @@
+import { env } from '../env';
 import { KibanaObjectModel } from './kibana-object.model';
 
 export class KibanaObjectsWrapperModel<T> {
-  public kibanaVersion = '6.3.2';
+  public kibanaVersion = env.kibana.version;
   public hits: KibanaObjectModel<T>[] = [];
 
   constructor(kibanaObjects: KibanaObjectModel<T>[]) {

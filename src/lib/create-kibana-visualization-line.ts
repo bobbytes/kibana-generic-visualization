@@ -1,16 +1,11 @@
 import { KibanaVisualizationType } from '../enums/kibana-visualization-state-type.enum';
+import { KibanaFilterModel } from '../kibana-models/kibana-filter.model';
 import {
     KibanaVisualizationAggregationModel
 } from '../kibana-models/kibana-visualization/kibana-visualization-aggregation.model';
 import {
     KibanaVisualizationCategoryAxis
 } from '../kibana-models/kibana-visualization/kibana-visualization-category-axis.model';
-import {
-    KibanaVisualizationFilterModel
-} from '../kibana-models/kibana-visualization/kibana-visualization-filter.model';
-import {
-    KibanaVisualizationSearchSourceJsonModel
-} from '../kibana-models/kibana-visualization/kibana-visualization-search-source-json.model';
 import {
     KibanaVisualizationSeriesParamModel
 } from '../kibana-models/kibana-visualization/kibana-visualization-series-param.model';
@@ -26,7 +21,7 @@ export interface IKibanaVisualizationLineConfig {
   savedSearchId: string;
   aggregations: KibanaVisualizationAggregationModel[];
   seriesParams: KibanaVisualizationSeriesParamModel[];
-  filters: KibanaVisualizationFilterModel[];
+  filters: KibanaFilterModel[];
 }
 
 export const createKibanaVisualizationLine = (config: IKibanaVisualizationLineConfig) => {
@@ -39,12 +34,10 @@ export const createKibanaVisualizationLine = (config: IKibanaVisualizationLineCo
     config.seriesParams
   );
 
-  const searchSourceJSON = new KibanaVisualizationSearchSourceJsonModel(config.filters);
-
   return new KibanaVisualizationModel(
     config.title,
     visualizationState,
     config.savedSearchId,
-    searchSourceJSON
+    config.filters
   );
 };
