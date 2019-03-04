@@ -8,7 +8,11 @@ const redisServiceNames = [
   'taibika-app-admin-revisionguard-3',
 ];
 
-genericVisualization.createVisualizationsByType(VisualizationTypeEnum.Redis, redisServiceNames);
-genericVisualization.createDashboard();
+async function createVisualization(): Promise<void> {
+  const createdIds = await genericVisualization.createVisualizationsByType(VisualizationTypeEnum.Redis, redisServiceNames);
+  genericVisualization.createDashboard(createdIds);
+}
+
+createVisualization();
 
 // kibanaConnector.getKibanaObject(ObjectTypeEnum.Dashboard);

@@ -56,7 +56,7 @@ class RedisVisualizations {
     const filter = new FilterModel('name', serviceName);
 
     const kibanaVisualizationLineConfig: IVisualizationLineConfig = {
-      title: `Redis ${serviceName} Memory bubu`,
+      title: `Redis ${serviceName} Memory`,
       savedSearchId: env.kibana.savedSearchId,
       aggregations: [timestampAggregation, ...fieldAggregations],
       seriesParams,

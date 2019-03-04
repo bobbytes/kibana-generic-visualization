@@ -11,11 +11,10 @@ export class DashboardPanelModel {
   public embeddableConfig = {};
 
   constructor(
-    panelIndex: string,
     visualizationId: string,
     gridData: DashboardGridData
   ) {
-    this.panelIndex = panelIndex;
+    this.panelIndex = gridData.i;
     this.id = visualizationId;
     this.gridData = gridData;
   }

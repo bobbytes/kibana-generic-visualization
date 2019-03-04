@@ -7,7 +7,7 @@ import { kibanaConnector } from './lib/kibana-connector';
 import { VisualizationModel } from './visualization/models/visualization.model';
 
 class GenericVisualization {
-  public createVisualizationsByType(visualizationType: VisualizationTypeEnum, serviceNames: string[]): void {
+  public async createVisualizationsByType(visualizationType: VisualizationTypeEnum, serviceNames: string[]): Promise<string[]> {
     let visualizations: VisualizationModel[];
 
     switch (visualizationType) {
@@ -18,12 +18,15 @@ class GenericVisualization {
     }
 
     if (visualizations && visualizations.length) {
-      kibanaConnector.setKibanaObject<VisualizationModel>(ObjectTypeEnum.Visualization, visualizations);
+      const response = await kibanaConnector.setKibanaObject<VisualizationModel>(ObjectTypeEnum.Visualization, visualizations);
+      return response.created;
     }
+
+    return [];
   }
 
-  public createDashboard(): void {
-    const dashboard = getDashboard();
+  public createDashboard(visualizationIds: string[]): void {
+    const dashboard = getDashboard(visualizationIds);
     kibanaConnector.setKibanaObject<DashboardModel>(ObjectTypeEnum.Dashboard, dashboard);
   }
 }
