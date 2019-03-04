@@ -1,4 +1,4 @@
-export class KibanaDashboardGridData {
+export class DashboardGridData {
   public x: number;
   public y: number;
   public w: number;

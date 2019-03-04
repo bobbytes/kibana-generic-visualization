@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
-import { getOsEnv } from './env-utils';
+import { getOsEnv } from './lib/env-utils';
 
 // this is a workaround due to typescript compiler which copies package,json to output directory
 // tslint:disable-next-line:no-var-requires

@@ -1,16 +1,11 @@
-import {
-    KibanaDashboardGridData
-} from './kibana-models/kibana-dashboard/kibana-dashboard-grid-data.model';
-import {
-    KibanaDashboardPanelModel
-} from './kibana-models/kibana-dashboard/kibana-dashboard-panel.model';
+import { DashboardGridData } from './models/dashboard-grid-data.model';
 
 interface IGridCoordinates {
   positionX: number;
   positionY: number;
 }
 
-export class KibanaDashboardGrid {
+export class DashboardGrid {
   private width: number;
   private height: number;
   private positionX: number;
@@ -22,12 +17,12 @@ export class KibanaDashboardGrid {
     this.height = height;
   }
 
-  public getGridData(panelIndex: string): KibanaDashboardGridData {
+  public getGridData(panelIndex: string): DashboardGridData {
     const { positionX, positionY } = this.calculateGridPosition();
     this.positionX = positionX;
     this.positionY = positionY;
 
-    return new KibanaDashboardGridData(
+    return new DashboardGridData(
       this.positionX,
       this.positionY,
       this.width,

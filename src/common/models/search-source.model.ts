@@ -1,14 +1,14 @@
-import { KibanaFilterModel } from './kibana-filter.model';
+import { FilterModel } from './filter.model';
 
-export interface IKibanaSearchSourceModelConfig {
-  filter?: KibanaFilterModel[];
+export interface ISearchSourceModelConfig {
+  filter?: FilterModel[];
   index?: string;
   highlightAll?: boolean;
   version?: boolean;
 }
 
-export class KibanaSearchSourceModel {
-  public filter: KibanaFilterModel[];
+export class SearchSourceModel {
+  public filter: FilterModel[];
   public query = {
     language: 'kuery',
     query: '',
@@ -17,7 +17,7 @@ export class KibanaSearchSourceModel {
   public highlightAll?: boolean;
   public version?: boolean;
 
-  constructor(config: IKibanaSearchSourceModelConfig) {
+  constructor(config: ISearchSourceModelConfig) {
     this.filter = config.filter || [];
     this.index = config.index;
     this.highlightAll = config.highlightAll;

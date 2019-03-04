@@ -1,10 +1,10 @@
 import request from 'request';
 import { isArray } from 'util';
 
-import { KibanaObjectTypeEnum } from '../enums/kibana-object-id-prefix.enum';
+import { ObjectTypeEnum } from '../common/enums/object-id-prefix.enum';
+import { KibanaObjectModel } from '../common/models/kibana-object.model';
+import { KibanaObjectsWrapperModel } from '../common/models/kibana-objects-wrapper.model';
 import { env } from '../env';
-import { KibanaObjectModel } from '../kibana-models/kibana-object.model';
-import { KibanaObjectsWrapperModel } from '../kibana-models/kibana-objects-wrapper.model';
 
 class KibanaConnector {
   private headers = {
@@ -20,7 +20,7 @@ class KibanaConnector {
     body: '',
   };
 
-  public getKibanaObject(objectType: KibanaObjectTypeEnum): void {
+  public getKibanaObject(objectType: ObjectTypeEnum): void {
     const options = this.options;
     options.url = `${options.url}/export`;
     options.body = `{"type": "${objectType}"}`;
@@ -28,7 +28,7 @@ class KibanaConnector {
     request(options, this.callback.bind(this));
   }
 
-  public setKibanaObject<T>(objectType: KibanaObjectTypeEnum, source: T | T[]): void {
+  public setKibanaObject<T>(objectType: ObjectTypeEnum, source: T | T[]): void {
     const kibanaObjects = isArray(source)
       ? source.map(s => new KibanaObjectModel<T>(objectType, s))
       : [new KibanaObjectModel<T>(objectType, source)];
@@ -37,8 +37,6 @@ class KibanaConnector {
     const options = this.options;
     options.body = kibanaObjectWrapper.toString();
     options.url = `${options.url}/import`;
-
-    console.log('bubu', options.body);
 
     request(options, this.callback.bind(this));
   }

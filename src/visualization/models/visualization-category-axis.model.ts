@@ -1,4 +1,4 @@
-export class KibanaVisualizationCategoryAxis {
+export class VisualizationCategoryAxis {
   public id = 'CategoryAxis-1';
   public labels = {
     show: true,

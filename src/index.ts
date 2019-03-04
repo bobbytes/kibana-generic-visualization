@@ -1,10 +1,5 @@
-import { KibanaObjectTypeEnum } from './enums/kibana-object-id-prefix.enum';
-import { GenericKibanaVisualization } from './kibana-generic-visualization';
-import { kibanaConnector } from './lib/kibana-connector';
+import { genericVisualization } from './generic-visualization';
 
-export * from './kibana-generic-visualization';
+genericVisualization.createDashboard();
 
-const bubu = new GenericKibanaVisualization();
-bubu.createDashboard();
-
-// kibanaConnector.getKibanaObject(KibanaObjectTypeEnum.Dashboard);
+// kibanaConnector.getKibanaObject(ObjectTypeEnum.Dashboard);

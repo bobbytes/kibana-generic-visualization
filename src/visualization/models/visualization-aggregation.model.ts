@@ -1,15 +1,11 @@
-import {
-    KibanaVisualizationAggregationSchemaEnum
-} from '../../enums/kibana-visualization-aggregation-schema.enum';
-import {
-    KibanaVisualizationAggregationTypeEnum
-} from '../../enums/kibana-visualization-aggregation-type.enum';
+import { VisualizationAggregationSchemaEnum } from '../enums/visualization-aggregation-schema.enum';
+import { VisualizationAggregationTypeEnum } from '../enums/visualization-aggregation-type.enum';
 
-interface IKibanaVisualizationAggregationConfig {
+interface IVisualizationAggregationConfig {
   id: string;
   field: string;
-  type: KibanaVisualizationAggregationTypeEnum;
-  schema: KibanaVisualizationAggregationSchemaEnum;
+  type: VisualizationAggregationTypeEnum;
+  schema: VisualizationAggregationSchemaEnum;
   customLabel?: string;
   interval?: string;
   customInterval?: string;
@@ -17,11 +13,11 @@ interface IKibanaVisualizationAggregationConfig {
   extended_bounds?: {};
 }
 
-export class KibanaVisualizationAggregationModel {
+export class VisualizationAggregationModel {
   public enabled = true;
   public id: string;
-  public type: KibanaVisualizationAggregationTypeEnum;
-  public schema: KibanaVisualizationAggregationSchemaEnum;
+  public type: VisualizationAggregationTypeEnum;
+  public schema: VisualizationAggregationSchemaEnum;
   public params = {
     field: '',
     customLabel: undefined,
@@ -31,7 +27,7 @@ export class KibanaVisualizationAggregationModel {
     extended_bounds: undefined,
   };
 
-  constructor(config: IKibanaVisualizationAggregationConfig) {
+  constructor(config: IVisualizationAggregationConfig) {
     this.id = config.id;
     this.type = config.type;
     this.schema = config.schema;

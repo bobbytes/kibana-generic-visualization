@@ -1,4 +1,4 @@
-import { env } from '../env';
+import { env } from '../../env';
 import { KibanaObjectModel } from './kibana-object.model';
 
 export class KibanaObjectsWrapperModel<T> {

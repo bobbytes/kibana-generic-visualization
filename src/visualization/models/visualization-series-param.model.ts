@@ -1,4 +1,4 @@
-export class KibanaVisualizationSeriesParamModel {
+export class VisualizationSeriesParamModel {
   public data = {
     id: '',
     label: '',

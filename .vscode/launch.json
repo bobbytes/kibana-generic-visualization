@@ -22,6 +22,12 @@
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
-    }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Run",
+      "program": "${workspaceFolder}/dist/index.js"
+    },
   ]
 }
