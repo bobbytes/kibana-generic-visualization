@@ -1,3 +1,4 @@
+import { VisualizationStateTypeEnum } from '../enums/visualization-state-type.enum';
 import { VisualizationAggregationModel } from './visualization-aggregation.model';
 import { VisualizationCategoryAxis } from './visualization-category-axis.model';
 import { VisualizationSeriesParamModel } from './visualization-series-param.model';
@@ -47,12 +48,12 @@ export class VisualizationStateModel {
 
   constructor(
     aggregations: VisualizationAggregationModel[],
-    type: string,
+    visualizationStateType: VisualizationStateTypeEnum,
     categoryAxes: VisualizationCategoryAxis[],
     seriesParams: VisualizationSeriesParamModel[]
   ) {
     this.aggs = aggregations;
-    this.type = type;
+    this.type = visualizationStateType;
     this.params.categoryAxes = categoryAxes;
     this.params.seriesParams = seriesParams;
   }

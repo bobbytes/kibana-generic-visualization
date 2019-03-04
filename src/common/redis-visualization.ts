@@ -18,15 +18,8 @@ import { VisualizationModel } from '../visualization/models/visualization.model'
 import { FilterModel } from './models/filter.model';
 
 class RedisVisualizations {
-  private redisServiceNames = [
-    'taibika-api-public-revisionguard-3',
-    'taibika-api-public-settings-store',
-    'taibika-api-revisionguard-3',
-    'taibika-app-admin-revisionguard-3',
-  ];
-
-  public getRedisVisualizations(): VisualizationModel[] {
-    const redisMemoryVisualizations = this.redisServiceNames.map(serviceName => this.getRedisMemoryVisualization(serviceName));
+  public getRedisVisualizations(redisServiceNames: string[]): VisualizationModel[] {
+    const redisMemoryVisualizations = redisServiceNames.map(serviceName => this.getRedisMemoryVisualization(serviceName));
 
     return redisMemoryVisualizations;
   }

@@ -1,5 +1,5 @@
 import { FilterModel } from '../common/models/filter.model';
-import { VisualizationType } from '../visualization/enums/visualization-state-type.enum';
+import { VisualizationStateTypeEnum } from '../visualization/enums/visualization-state-type.enum';
 import {
     VisualizationAggregationModel
 } from '../visualization/models/visualization-aggregation.model';
@@ -25,7 +25,7 @@ export const createVisualizationLine = (config: IVisualizationLineConfig) => {
 
   const visualizationState = new VisualizationStateModel(
     config.aggregations,
-    VisualizationType.Line,
+    VisualizationStateTypeEnum.Line,
     [categoryAxis],
     config.seriesParams
   );

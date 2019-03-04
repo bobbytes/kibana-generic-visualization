@@ -1,3 +1,3 @@
-export enum VisualizationType {
+export enum VisualizationStateTypeEnum {
   Line = 'line',
 }
