@@ -1,13 +1,7 @@
-import { GenericKibanaVisualization } from '../../src/kibana-generic-visualization';
+import { genericVisualization } from '../../src/generic-visualization';
 
 describe('GenericKibanaVisualization', () => {
-  let genericKibanaVisualization: GenericKibanaVisualization;
-
-  beforeAll(() => {
-    genericKibanaVisualization = new GenericKibanaVisualization();
-  });
-
   test('first test', () => {
-    expect(genericKibanaVisualization).toBeInstanceOf(GenericKibanaVisualization);
+    expect(genericVisualization).toBeDefined();
   });
 });
