@@ -9,6 +9,7 @@ import { VisualizationIntervalEnum } from './enums/visualization-interval.enum';
 import { VisualizationLegendPositionEnum } from './enums/visualization-legend-position.enum';
 import { VisualizationParamsTypeEnum } from './enums/visualization-params-type.enum';
 import { VisualizationStateTypeEnum } from './enums/visualization-state-type.enum';
+import { showDateHistogramAggregationMap } from './mappers/show-date-histogram-aggregation.map';
 import {
     VisualizationAggregationParamsModel
 } from './models/visualization-aggregation-params.model';
@@ -45,7 +46,8 @@ export class Visualization {
   }
 
   private getVisualization(serviceName: string, stateType: VisualizationStateTypeEnum, title: TVisualizationTitle, fields: IField[]): VisualizationModel {
-    const aggregations = this.getAggregations(fields);
+    const aggregations = this.getAggregations(stateType, fields);
+
     const seriesParams = fields.map((field, index) => new VisualizationSeriesParamModel(`${index + 1}`, field.customLabel));
     const filters = [new FilterModel('name', serviceName)];
     const categoryAxes = [new VisualizationCategoryAxis()];
@@ -72,7 +74,7 @@ export class Visualization {
     );
   }
 
-  private getAggregations(fields: IField[]): VisualizationAggregationModel[] {
+  private getAggregations(stateType: VisualizationStateTypeEnum, fields: IField[]): VisualizationAggregationModel[] {
     const aggregationParams = new VisualizationAggregationParamsModel({
       field: '@timestamp',
       interval: VisualizationIntervalEnum.Auto,
@@ -81,7 +83,7 @@ export class Visualization {
       extended_bounds: {},
     });
 
-    const timestampAggregation = new VisualizationAggregationModel({
+    const dateHistogramAggregation = new VisualizationAggregationModel({
       id: '1',
       type: VisualizationAggregationTypeEnum.DateHistogram,
       schema: VisualizationAggregationSchemaEnum.Segment,
@@ -102,6 +104,8 @@ export class Visualization {
       });
     });
 
-    return [timestampAggregation, ...fieldAggregations];
+    const showDateHistogram = showDateHistogramAggregationMap.get(stateType);
+
+    return showDateHistogram ? [dateHistogramAggregation, ...fieldAggregations] : fieldAggregations;
   }
 }

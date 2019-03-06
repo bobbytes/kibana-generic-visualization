@@ -18,7 +18,7 @@ class Dashboard {
   }
 
   private getPanels(visualizationIds: string[]): DashboardPanelModel[] {
-    const kibanaDashboardGrid = new DashboardGrid(24, 15);
+    const kibanaDashboardGrid = new DashboardGrid(12, 12);
 
     return visualizationIds.map((visualizationId, index) => {
       const gridData = kibanaDashboardGrid.getGridData(`${index + 1}`);

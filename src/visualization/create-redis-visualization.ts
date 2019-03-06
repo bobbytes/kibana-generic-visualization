@@ -1,3 +1,4 @@
+import { dashboard } from '../dashboard/dashboard';
 import { VisualizationStateTypeEnum } from './enums/visualization-state-type.enum';
 import { Visualization } from './visualization';
 
@@ -29,17 +30,20 @@ export const createRedisVisualizations = async (serviceNames: string[]): Promise
 
   const metricFields = [...memoryFields, ...activityFields];
 
-  /*
   const metricVisualizations = visualization.getVisualizations(
-    VisualizationStateTypeEnum.Line,
+    VisualizationStateTypeEnum.Metric,
     serviceName => `Redis ${serviceName} Metric`,
     metricFields
-  );*/
+  );
 
-  const response = await visualization.createVisualizations([
+  visualization.createVisualizations([
     ...memoryVisualizations,
     ...activityVisualizations,
   ]);
+
+  const response = await visualization.createVisualizations(metricVisualizations);
+
+  dashboard.create('Generated Redis Metrics', response.created);
 
   return response.created;
 };
