@@ -27,6 +27,19 @@ export const createRedisVisualizations = async (serviceNames: string[]): Promise
     activityFields
   );
 
-  const response = await visualization.createVisualizations([...memoryVisualizations, ...activityVisualizations]);
+  const metricFields = [...memoryFields, ...activityFields];
+
+  /*
+  const metricVisualizations = visualization.getVisualizations(
+    VisualizationStateTypeEnum.Line,
+    serviceName => `Redis ${serviceName} Metric`,
+    metricFields
+  );*/
+
+  const response = await visualization.createVisualizations([
+    ...memoryVisualizations,
+    ...activityVisualizations,
+  ]);
+
   return response.created;
 };
