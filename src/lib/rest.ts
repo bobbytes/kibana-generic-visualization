@@ -3,7 +3,8 @@ import request from 'request';
 import { env } from '../env';
 
 enum RequestMethodEnum {
-  Post = 'Post',
+  Post = 'POST',
+  Delete = 'DELETE',
 }
 
 class Rest {
@@ -21,9 +22,17 @@ class Rest {
   public post<T>(url: string, body: string): Promise<T> {
     const options = {
       ...this.options,
-      url: `${this.options.url}${url}`,
       method: RequestMethodEnum.Post,
       body,
+    };
+
+    return this.sendRequest<T>(url, options);
+  }
+
+  public delete<T>(url: string): Promise<T> {
+    const options = {
+      ...this.options,
+      method: RequestMethodEnum.Delete,
     };
 
     return this.sendRequest<T>(url, options);
@@ -38,7 +47,6 @@ class Rest {
     return new Promise<T>((resolve, reject) => {
       request(requestOptions, (error: any, response: request.Response, body: T) => {
         if (!error && response.statusCode === 200) {
-          console.log(body);
           resolve(this.parseResponseBody(body));
         } else {
           reject(error);

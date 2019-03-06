@@ -1,15 +1,30 @@
+import { ObjectTypeEnum } from '../common/enums/object-id-prefix.enum';
+import { KibanaObjectModel } from '../common/models/kibana-object.model';
+import { kibanaConnector } from '../lib/kibana-connector';
 import { DashboardGrid } from './dashboard-grid';
 import { DashboardPanelModel } from './models/dashboard-panel.model';
 import { DashboardModel } from './models/dashboard.model';
 
-export const getDashboard = (visualizationIds: string[]): DashboardModel => {
-  const kibanaDashboardGrid = new DashboardGrid(24, 15);
-  const title = 'Generated Dashboard';
+class Dashboard {
+  public getAll(): Promise<KibanaObjectModel<DashboardModel>[]> {
+    return kibanaConnector.getAllKibanaObjectsByType<DashboardModel>(ObjectTypeEnum.Dashboard);
+  }
 
-  const panels = visualizationIds.map((visualizationId, index) => {
-    const gridData = kibanaDashboardGrid.getGridData(`${index + 1}`);
-    return new DashboardPanelModel(visualizationId, gridData);
-  });
+  public create = (title: string, visualizationIds: string[]): void => {
+    const panels = this.getPanels(visualizationIds);
 
-  return new DashboardModel(title, panels);
-};
+    const newDashboard = new DashboardModel(title, panels);
+    kibanaConnector.setKibanaObject<DashboardModel>(ObjectTypeEnum.Dashboard, newDashboard);
+  }
+
+  private getPanels(visualizationIds: string[]): DashboardPanelModel[] {
+    const kibanaDashboardGrid = new DashboardGrid(24, 15);
+
+    return visualizationIds.map((visualizationId, index) => {
+      const gridData = kibanaDashboardGrid.getGridData(`${index + 1}`);
+      return new DashboardPanelModel(visualizationId, gridData);
+    });
+  }
+}
+
+export const dashboard = new Dashboard();

@@ -1,4 +1,4 @@
-import { DashboardGrid } from '../../src/dashboard/dashboard-grid';
+import { DashboardGrid } from '../../../src/dashboard/dashboard-grid';
 
 describe('KibanaDashboardGrid', () => {
   let dashboardGrid: DashboardGrid;
