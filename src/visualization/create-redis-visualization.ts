@@ -1,8 +1,15 @@
 import { dashboard } from '../dashboard/dashboard';
+import { IKibanaResponse } from '../lib/kibana-connector';
 import { VisualizationStateTypeEnum } from './enums/visualization-state-type.enum';
 import { Visualization } from './visualization';
 
-export const createRedisVisualizations = async (serviceNames: string[]): Promise<string[]> => {
+interface ICreateRedisVisualizationsResponse {
+  memoryVisualizations: IKibanaResponse;
+  activityVisualizations: IKibanaResponse;
+  metricVisualizations: IKibanaResponse;
+}
+
+export const createRedisVisualizations = async (serviceNames: string[]): Promise<ICreateRedisVisualizationsResponse> => {
   const visualization = new Visualization(serviceNames);
 
   const memoryFields = [
@@ -36,14 +43,17 @@ export const createRedisVisualizations = async (serviceNames: string[]): Promise
     metricFields
   );
 
-  visualization.createVisualizations([
-    ...memoryVisualizations,
-    ...activityVisualizations,
-  ]);
+  const promises = [
+    visualization.createVisualizations(memoryVisualizations),
+    visualization.createVisualizations(activityVisualizations),
+    visualization.createVisualizations(metricVisualizations),
+  ];
 
-  const response = await visualization.createVisualizations(metricVisualizations);
+  const response = await Promise.all(promises);
 
-  dashboard.create('Generated Redis Metrics', response.created);
-
-  return response.created;
+  return {
+    memoryVisualizations: response[0],
+    activityVisualizations: response[1],
+    metricVisualizations: response[2],
+  };
 };
