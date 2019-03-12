@@ -19,3 +19,9 @@
 </p>
 
 ![divider](./divider.png)
+
+## ❯ Why
+
+Generate kibana visualizations and dashboards dynamically.
+
+![divider](./divider.png)

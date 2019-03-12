@@ -1,6 +1,6 @@
 {
   "name": "kibana-generic-visualization",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Create Kibana visualizations and dashboards from configuration",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -9,6 +9,7 @@
   ],
   "types": "dist/index.d.ts",
   "scripts": {
+    "start": "node ./dist/index.js",
     "build": "rollup -c",
     "test": "set NODE_ENV=test&& jest --env=jsdom --coverage",
     "lint": "tslint --project tsconfig.json --format stylish",
@@ -64,6 +65,8 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^24.0.6",
+    "@types/request": "^2.48.1",
+    "@types/uuid": "^3.4.4",
     "dts-bundle": "^0.7.3",
     "jest": "^24.1.0",
     "rollup": "^1.2.2",
@@ -72,5 +75,10 @@
     "ts-jest": "^24.0.0",
     "tslint": "^5.12.1",
     "typescript": "^3.3.3"
+  },
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "lodash-es": "^4.17.11",
+    "uuid": "^3.3.2"
   }
 }
