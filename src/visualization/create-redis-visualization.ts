@@ -9,7 +9,7 @@ interface ICreateRedisVisualizationsResponse {
   metricVisualizations: IKibanaResponse;
 }
 
-export const createRedisVisualizations = async (serviceNames: string[]): Promise<ICreateRedisVisualizationsResponse> => {
+export const createRedisVisualizations = async (serviceNames: string[], savedSearchId: string): Promise<ICreateRedisVisualizationsResponse> => {
   const visualization = new Visualization(serviceNames);
 
   const memoryFields = [
@@ -20,7 +20,8 @@ export const createRedisVisualizations = async (serviceNames: string[]): Promise
   const memoryVisualizations = visualization.getVisualizations(
     VisualizationStateTypeEnum.Line,
     serviceName => `Redis ${serviceName} Memory`,
-    memoryFields
+    memoryFields,
+    savedSearchId
   );
 
   const activityFields = [
@@ -32,7 +33,8 @@ export const createRedisVisualizations = async (serviceNames: string[]): Promise
   const activityVisualizations = visualization.getVisualizations(
     VisualizationStateTypeEnum.Line,
     serviceName => `Redis ${serviceName} Activity`,
-    activityFields
+    activityFields,
+    savedSearchId
   );
 
   const metricFields = [...memoryFields, ...activityFields];
@@ -40,7 +42,8 @@ export const createRedisVisualizations = async (serviceNames: string[]): Promise
   const metricVisualizations = visualization.getVisualizations(
     VisualizationStateTypeEnum.Metric,
     serviceName => `Redis ${serviceName} Metric`,
-    metricFields
+    metricFields,
+    savedSearchId
   );
 
   const promises = [

@@ -27,7 +27,6 @@ export const env = {
   },
   kibana: {
     version: getOsEnv('KIBANA_VERSION'),
-    savedSearchId: getOsEnv('KIBANA_SAVED_SEARCH_ID'),
   },
   logzIo: {
     host: getOsEnv('LOGZ_IO_API_HOST'),

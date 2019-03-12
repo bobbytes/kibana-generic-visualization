@@ -1,6 +1,5 @@
 import { ObjectTypeEnum } from '../common/enums/object-id-prefix.enum';
 import { FilterModel } from '../common/models/filter.model';
-import { env } from '../env';
 import { kibanaConnector, TKibanaResponse } from '../lib/kibana-connector';
 import { getDateHistogramAggregation } from './aggregations/date-histogram-aggregation';
 import { getMaxAggregation } from './aggregations/max-aggregation';
@@ -31,16 +30,21 @@ export class Visualization {
     this.serviceNames = serviceNames;
   }
 
-  public getVisualizations(stateType: VisualizationStateTypeEnum, title: TVisualizationTitle, fields: IField[]): VisualizationModel[] {
+  public getVisualizations(stateType: VisualizationStateTypeEnum, title: TVisualizationTitle, fields: IField[], savedSearchId: string): VisualizationModel[] {
     return this.serviceNames
-      .map(serviceName => this.getVisualization(serviceName, stateType, title, fields));
+      .map(serviceName => this.getVisualization(serviceName, stateType, title, fields, savedSearchId));
   }
 
   public createVisualizations(visualizations: VisualizationModel[]): TKibanaResponse {
     return kibanaConnector.setKibanaObject<VisualizationModel>(ObjectTypeEnum.Visualization, visualizations);
   }
 
-  private getVisualization(serviceName: string, stateType: VisualizationStateTypeEnum, title: TVisualizationTitle, fields: IField[]): VisualizationModel {
+  private getVisualization(
+    serviceName: string,
+    stateType: VisualizationStateTypeEnum,
+    title: TVisualizationTitle,
+    fields: IField[],
+    savedSearchId: string): VisualizationModel {
     const aggregations = this.getAggregations(stateType, fields);
 
     const seriesParams = fields.map((field, index) => new VisualizationSeriesParamModel(`${index + 1}`, field.customLabel));
@@ -64,7 +68,7 @@ export class Visualization {
     return new VisualizationModel(
       title(serviceName),
       visualizationState,
-      env.kibana.savedSearchId,
+      savedSearchId,
       filters
     );
   }
