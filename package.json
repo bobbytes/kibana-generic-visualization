@@ -1,6 +1,6 @@
 {
   "name": "kibana-generic-visualization",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Create Kibana visualizations and dashboards from configuration",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
