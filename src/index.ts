@@ -1,2 +1,1 @@
-export * from './visualization';
-export * from './dashboard';
+export * from './kibana-generic-visualization';

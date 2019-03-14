@@ -1,24 +1,30 @@
 import { ObjectTypeEnum } from '../common/enums/object-id-prefix.enum';
 import { KibanaObjectModel } from '../common/models/kibana-object.model';
-import { kibanaConnector } from '../lib/kibana-connector';
-import { DashboardGrid } from './dashboard-grid';
+import { Inject, injector } from '../lib/dependency-injection';
+import { IKibanaResponse, KibanaConnector } from '../lib/kibana-connector';
+import { DashboardGrid, IDashboardGridConfig } from './dashboard-grid';
 import { DashboardPanelModel } from './models/dashboard-panel.model';
 import { DashboardModel } from './models/dashboard.model';
 
-class Dashboard {
+@Inject()
+export class Dashboard {
+  constructor(
+    private kibanaConnector: KibanaConnector
+  ) { }
+
   public getAll(): Promise<KibanaObjectModel<DashboardModel>[]> {
-    return kibanaConnector.getAllKibanaObjectsByType<DashboardModel>(ObjectTypeEnum.Dashboard);
+    return this.kibanaConnector.getAllKibanaObjectsByType<DashboardModel>(ObjectTypeEnum.Dashboard);
   }
 
-  public create = (title: string, visualizationIds: string[]): void => {
-    const panels = this.getPanels(visualizationIds);
+  public create = (title: string, visualizationIds: string[], dashboardGridConfig: IDashboardGridConfig): Promise<IKibanaResponse> => {
+    const panels = this.getPanels(visualizationIds, dashboardGridConfig);
 
     const newDashboard = new DashboardModel(title, panels);
-    kibanaConnector.setKibanaObject<DashboardModel>(ObjectTypeEnum.Dashboard, newDashboard);
+    return this.kibanaConnector.setKibanaObject<DashboardModel>(ObjectTypeEnum.Dashboard, newDashboard);
   }
 
-  private getPanels(visualizationIds: string[]): DashboardPanelModel[] {
-    const kibanaDashboardGrid = new DashboardGrid(12, 12);
+  private getPanels(visualizationIds: string[], dashboardGridConfig: IDashboardGridConfig): DashboardPanelModel[] {
+    const kibanaDashboardGrid = new DashboardGrid(dashboardGridConfig);
 
     return visualizationIds.map((visualizationId, index) => {
       const gridData = kibanaDashboardGrid.getGridData(`${index + 1}`);
@@ -27,4 +33,4 @@ class Dashboard {
   }
 }
 
-export const dashboard = new Dashboard();
+injector.resolve(Dashboard);

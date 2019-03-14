@@ -1,6 +1,7 @@
 import { ObjectTypeEnum } from '../common/enums/object-id-prefix.enum';
 import { FilterModel } from '../common/models/filter.model';
-import { kibanaConnector, TKibanaResponse } from '../lib/kibana-connector';
+import { Inject, injector } from '../lib/dependency-injection';
+import { IKibanaResponse, KibanaConnector } from '../lib/kibana-connector';
 import { getDateHistogramAggregation } from './aggregations/date-histogram-aggregation';
 import { getMaxAggregation } from './aggregations/max-aggregation';
 import { getTopHitAggregation } from './aggregations/top-hit-aggregation';
@@ -21,29 +22,31 @@ interface IField {
   customLabel: string;
 }
 
-type TVisualizationTitle = (serviceName: string) => string;
+export type TVisualizationFields = IField[];
+export type TVisualizationTitle = (serviceName: string) => string;
 
+@Inject()
 export class Visualization {
-  private serviceNames: string[];
+  constructor(
+    private kibanaConnector: KibanaConnector
+  ) { }
 
-  constructor(serviceNames: string[]) {
-    this.serviceNames = serviceNames;
+  public create(
+    stateType: VisualizationStateTypeEnum,
+    serviceNames: string[],
+    title: TVisualizationTitle,
+    fields: TVisualizationFields,
+    savedSearchId: string
+  ): Promise<IKibanaResponse> {
+    const visualizations = serviceNames.map(serviceName => this.getVisualizationModel(serviceName, stateType, title, fields, savedSearchId));
+    return this.kibanaConnector.setKibanaObject<VisualizationModel>(ObjectTypeEnum.Visualization, visualizations);
   }
 
-  public getVisualizations(stateType: VisualizationStateTypeEnum, title: TVisualizationTitle, fields: IField[], savedSearchId: string): VisualizationModel[] {
-    return this.serviceNames
-      .map(serviceName => this.getVisualization(serviceName, stateType, title, fields, savedSearchId));
-  }
-
-  public createVisualizations(visualizations: VisualizationModel[]): TKibanaResponse {
-    return kibanaConnector.setKibanaObject<VisualizationModel>(ObjectTypeEnum.Visualization, visualizations);
-  }
-
-  private getVisualization(
+  private getVisualizationModel(
     serviceName: string,
     stateType: VisualizationStateTypeEnum,
     title: TVisualizationTitle,
-    fields: IField[],
+    fields: TVisualizationFields,
     savedSearchId: string): VisualizationModel {
     const aggregations = this.getAggregations(stateType, fields);
 
@@ -73,7 +76,7 @@ export class Visualization {
     );
   }
 
-  private getAggregations(stateType: VisualizationStateTypeEnum, fields: IField[]): VisualizationAggregationModel[] {
+  private getAggregations(stateType: VisualizationStateTypeEnum, fields: TVisualizationFields): VisualizationAggregationModel[] {
     switch (stateType) {
       case VisualizationStateTypeEnum.Line:
         return [
@@ -87,3 +90,5 @@ export class Visualization {
     }
   }
 }
+
+injector.resolve(Visualization);
