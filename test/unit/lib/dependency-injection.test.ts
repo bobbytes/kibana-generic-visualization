@@ -1,14 +1,12 @@
-import { KibanaGenericVisualization } from '../../../src/kibana-generic-visualization';
+import { injector } from '../../../src/lib/dependency-injection';
+import { KibanaConnector } from '../../../src/lib/kibana-connector';
+import { Visualization } from '../../../src/visualization/visualization';
 
-describe('bubu', () => {
-  let kibanaGenericVisualization: KibanaGenericVisualization;
+describe('Injector', () => {
+  test('KibanaConnector must be injected to Visualization', () => {
+    const visualization = injector.resolve<Visualization>(Visualization);
 
-  test('bubu test', () => {
-    kibanaGenericVisualization = new KibanaGenericVisualization({
-      kibanaVersion: '6.3.2',
-      api: { token: 'very-secret', host: 'bubu-host' },
-    });
-
-    expect(kibanaGenericVisualization).toBeInstanceOf(KibanaGenericVisualization);
+    expect(visualization).toBeInstanceOf(Visualization);
+    expect(visualization.kibanaConnector).toBeInstanceOf(KibanaConnector);
   });
 });
