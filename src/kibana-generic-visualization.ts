@@ -1,13 +1,15 @@
 import { ObjectTypeEnum } from './common/enums/object-id-prefix.enum';
 import { KibanaObjectModel } from './common/models/kibana-object.model';
-import { Dashboard } from './dashboard';
+import { Dashboard } from './dashboard/dashboard';
 import { IDashboardGridConfig } from './dashboard/dashboard-grid';
 import { Config, IConfig } from './lib/config';
 import { injector } from './lib/dependency-injection';
 import { IKibanaResponse, KibanaConnector } from './lib/kibana-connector';
 import { Rest } from './lib/rest';
-import { TVisualizationFields, TVisualizationTitle, Visualization } from './visualization';
 import { VisualizationStateTypeEnum } from './visualization/enums/visualization-state-type.enum';
+import {
+    TVisualizationFields, TVisualizationTitle, Visualization
+} from './visualization/visualization';
 
 export { VisualizationStateTypeEnum, TVisualizationTitle, TVisualizationFields, IKibanaResponse, IDashboardGridConfig, ObjectTypeEnum, KibanaObjectModel };
 
