@@ -1,3 +1,4 @@
+import { defaults } from '../lib/defaults';
 import { DashboardGridData } from './models/dashboard-grid-data.model';
 
 interface IGridCoordinates {
@@ -5,16 +6,25 @@ interface IGridCoordinates {
   positionY: number;
 }
 
+export interface IDashboardGridConfig {
+  width?: number;
+  height?: number;
+  maxWidth?: number;
+}
+
 export class DashboardGrid {
-  private width: number;
-  private height: number;
+  private config: IDashboardGridConfig;
   private positionX: number;
   private positionY: number;
-  private maxWidth = 48;
 
-  constructor(width: number, height: number) {
-    this.width = width;
-    this.height = height;
+  constructor(config: IDashboardGridConfig) {
+    const defaultConfig = {
+      width: 24,
+      height: 15,
+      maxWidth: 48,
+    };
+
+    this.config = defaults(config, defaultConfig);
   }
 
   public getGridData(panelIndex: string): DashboardGridData {
@@ -25,8 +35,8 @@ export class DashboardGrid {
     return new DashboardGridData(
       this.positionX,
       this.positionY,
-      this.width,
-      this.height,
+      this.config.width,
+      this.config.height,
       panelIndex);
   }
 
@@ -35,18 +45,18 @@ export class DashboardGrid {
       return { positionX: 0, positionY: 0 };
     }
 
-    const remainingWidth = this.maxWidth - this.positionX;
+    const remainingWidth = this.config.maxWidth - this.positionX;
 
-    if (2 * this.width <= remainingWidth) {
+    if (2 * this.config.width <= remainingWidth) {
       return {
-        positionX: this.positionX + this.width,
+        positionX: this.positionX + this.config.width,
         positionY: this.positionY,
       };
     }
 
     return {
       positionX: 0,
-      positionY: this.positionY + this.height,
+      positionY: this.positionY + this.config.height,
     };
   }
 }

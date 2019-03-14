@@ -77,8 +77,8 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "dotenv": "^6.2.0",
     "lodash-es": "^4.17.11",
+    "reflect-metadata": "^0.1.13",
     "uuid": "^3.3.2"
   }
 }

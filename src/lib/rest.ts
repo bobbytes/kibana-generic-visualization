@@ -1,23 +1,40 @@
 import request from 'request';
 
-import { env } from '../env';
+import { Config } from './config';
+import { Inject, injector } from './dependency-injection';
 
 enum RequestMethodEnum {
   Post = 'POST',
   Delete = 'DELETE',
 }
 
-class Rest {
-  private headers = {
-    'accept': 'application/json',
-    'content-type': 'application/json',
-    'X-API-TOKEN': env.logzIo.token,
-  };
+export interface IRestConfig {
+  host: string;
+  token: string;
+}
 
-  private options = {
-    url: `${env.logzIo.host}/kibana`,
-    headers: this.headers,
-  };
+type TOptions = request.UrlOptions & request.CoreOptions;
+
+@Inject()
+export class Rest {
+  private options: TOptions;
+
+  constructor(
+    private config: Config
+  ) { }
+
+  public init(): void {
+    const headers = {
+      'accept': 'application/json',
+      'content-type': 'application/json',
+      'X-API-TOKEN': this.config.api.token,
+    };
+
+    this.options = {
+      url: `${this.config.api.host}/kibana`,
+      headers,
+    };
+  }
 
   public post<T>(url: string, body: string): Promise<T> {
     const options = {
@@ -38,7 +55,7 @@ class Rest {
     return this.sendRequest<T>(url, options);
   }
 
-  private sendRequest<T>(url: string, options: request.UrlOptions): Promise<T> {
+  private sendRequest<T>(url: string, options: TOptions): Promise<T> {
     const requestOptions = {
       ...options,
       url: `${this.options.url}${url}`,
@@ -70,4 +87,4 @@ class Rest {
   }
 }
 
-export const rest = new Rest();
+injector.resolve(Rest);

@@ -4,7 +4,7 @@ describe('KibanaDashboardGrid', () => {
   let dashboardGrid: DashboardGrid;
 
   beforeAll(() => {
-    dashboardGrid = new DashboardGrid(24, 15);
+    dashboardGrid = new DashboardGrid({ width: 24, height: 15 });
   });
 
   test('must return calculated grid data', () => {
