@@ -62,7 +62,7 @@ const { KibanaGenericVisualization } = require('kibana-generic-visualization');
 Using `ES6` module loader:
 
 ```javascript
-import { DatabaseMetricsLogger } from 'kibana-generic-visualization';
+import { KibanaGenericVisualization } from 'kibana-generic-visualization';
 ```
 
 #### Step 2: Create new instance of KibanaGenericVisualization

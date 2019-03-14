@@ -15,7 +15,7 @@ export interface IKibanaResponse {
 @Inject()
 export class KibanaConnector {
   constructor(
-    private rest: Rest
+    public rest: Rest
   ) {
     // tslint:disable-next-line: no-empty
   }

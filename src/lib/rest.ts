@@ -20,7 +20,7 @@ export class Rest {
   private options: TOptions;
 
   constructor(
-    private config: Config
+    public config: Config
   ) { }
 
   public init(): void {

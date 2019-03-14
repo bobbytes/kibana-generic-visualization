@@ -28,7 +28,7 @@ export type TVisualizationTitle = (serviceName: string) => string;
 @Inject()
 export class Visualization {
   constructor(
-    private kibanaConnector: KibanaConnector
+    public kibanaConnector: KibanaConnector
   ) { }
 
   public create(

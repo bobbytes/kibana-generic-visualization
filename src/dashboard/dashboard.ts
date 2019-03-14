@@ -9,7 +9,7 @@ import { DashboardModel } from './models/dashboard.model';
 @Inject()
 export class Dashboard {
   constructor(
-    private kibanaConnector: KibanaConnector
+    public kibanaConnector: KibanaConnector
   ) { }
 
   public getAll(): Promise<KibanaObjectModel<DashboardModel>[]> {
